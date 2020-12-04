@@ -55,7 +55,7 @@ public class ExcelController {
 
 		try {
 			MultipartFile uploadFile = request.getFile("uploadFile");
-			fileNameDest = uploadFile.getOriginalFilename();
+			fileName = uploadFile.getOriginalFilename();
 		
 			byte[] bytes = uploadFile.getBytes();
 
@@ -76,16 +76,17 @@ public class ExcelController {
 				fModel.setFileExtension(ext);
 				fModel.setFilePath(path);
 				fModel.setFileSize(uploadFile.getSize());
-				file = new File(path + File.separator + fileName);
+				file = new File(path + File.separator + fileNameDest);
 				
 			}
 		
 			os = new FileOutputStream(file);
 			os.write(bytes);
-
-			if (ext.equals("xls") || ext.equals("xlsx")) {
+			
+			excelService.insertExcelFile(fModel);
+			/*if (ext.equals("xls") || ext.equals("xlsx")) {
 				saveExcel(path + File.separator + fileName, fileName, ext);
-			}
+			}*/
 
 		} catch (Exception e) {
 			e.printStackTrace();

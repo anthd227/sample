@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form method="post" action="/excel/fileUpload.do" enctype="multipart/form-data">
-		<input type="file" multiple="multiple" name="uploadFile">
+		<input type="file" name="uploadFile">
 		<button type="submit">Ã·ºÎ</button>
 	</form> 
 </body>
