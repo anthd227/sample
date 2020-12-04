@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erns.sample.excel.dao.ExcelDao">
+	<insert id="insertExcelFile" parameterType="com.erns.sample.excel.model.FileModel">
+		INSERT INTO T_FILE 
+			   (FILE_NAME, FILE_NAME_DEST, FILE_SIZE, FILE_PATH, FILE_EXTENSION)
+		VALUES (#{fileName}, #{fileNameDest}, #{fileSize}, #{filePath}, #{fileExtension})	   
+	</insert>
+</mapper>
