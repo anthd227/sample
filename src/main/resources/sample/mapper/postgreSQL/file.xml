@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sonax.api">
+	<sql id="fileFields">
+		FILE.FILE_ID
+		, FILE.REF_CODE
+		, FILE.REF_ID
+		, FILE.FILE_ORDER
+		, FILE.FILE_NAME_DEST
+		, FILE.FILE_NAME
+		, FILE.FILE_SIZE
+		, FILE.FILE_EXTENSION
+		, FILE.FILE_PATH
+		, FILE.DEL_YN
+		, FILE.REG_ID
+		, FILE.REG_DATE
+		, FILE.UDT_ID
+		, FILE.UDT_DATE
+		
+	</sql>
+	
+	<select id="getList"
+		resultType="com.sonax.api.file.model.FileModel">
+		/* getList */
+		SELECT 
+			<include refid="fileFields"/>
+	    FROM T_FILE FILE
+		ORDER BY FILE.FILE_ID DESC
+	</select>
+	
+	<select id="getFileById"
+		parameterType="com.sonax.api.file.model.FileModel"
+		resultType="com.sonax.api.file.model.FileModel">
+		/* getFileById */
+		SELECT
+			<include refid="fileFields"/>
+		FROM T_FILE FILE
+		<where>
+			AND FILE.FILE_ID = #{value, jdbcType=INTEGER}
+		</where>	
+	</select>
+	
+	<insert id="insertFile"
+		useGeneratedKeys="true" keyProperty="fileId"
+		parameterType="com.sonax.api.file.model.FileModel">
+		/* insertFile */
+		INSERT INTO T_FILE (
+			FILE_ID, REF_CODE, REF_ID, FILE_ORDER, FILE_NAME_DEST
+			, FILE_NAME, FILE_SIZE, FILE_EXTENSION, FILE_PATH
+			, DEL_YN, REG_ID, REG_DATE
+		)
+		VALUES (
+			#{fileId, jdbcType=INTEGER}
+			, #{refCode, jdbcType=VARCHAR}
+			, #{refId, jdbcType=INTEGER}
+			, #{fileOrder, jdbcType=INTEGER}
+			, #{fileNameDest, jdbcType=VARCHAR}
+			, #{fileName, jdbcType=VARCHAR}
+			, #{fileSize, jdbcType=INTEGER}
+			, #{fileExtension, jdbcType=VARCHAR}
+			, #{filePath, jdbcType=VARCHAR}
+			, #{delYn, jdbcType=CHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateFile"
+		parameterType="com.sonax.api.file.model.FileModel">
+		/* updateFile */
+		UPDATE T_FILE SET
+			REF_CODE = #{refCode, jdbcType=VARCHAR}, 
+			, REF_ID = #{refId, jdbcType=INTEGER}
+			, FILE_ORDER = #{fileOrder, jdbcType=INTEGER}
+			, FILE_NAME_DEST = #{fileNameDest, jdbcType=VARCHAR}
+			, FILE_NAME = #{fileName, jdbcType=VARCHAR}
+			, FILE_SIZE = #{fileSize, jdbcType=INTEGER}
+			, FILE_EXTENSTION = #{fileExtension, jdbcType=VARCHAR}
+			, FILE_PATH = #{filePath, jdbcType=VARCHAR}
+			, DEL_YN = #{delYn, jdbcType=CHAR}
+			, UDT_ID = #{regId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE FILE_ID = #{fileId, jdbcType=INTEGER}	
+	</update>
+	
+	<update id="updateFileDelYn"
+		parameterType="com.sonax.api.file.model.FileModel">
+		/* updateFileDelYn */
+		UPDATE T_FILE SET
+			DEL_YN = #{delYn, jdbcType=CHAR}
+			, UDT_ID = #{regId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE FILE_ID = #{fileId, jdbcType=INTEGER}	
+	</update>
+	
+	<delete id="deleteFileById"
+		parameterType="com.sonax.api.file.model.FileModel">
+		/* deleteFileById */
+		DELETE FROM T_FILE             		
+        WHERE FILE_ID = #{fileId,jdbcType=INTEGER}
+	</delete>
+</mapper>

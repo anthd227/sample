@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sonax.api">
+	<sql id="userFields">
+		USR.USER_ID
+	    , USR.USER_GROUP_ID
+	    , USR.PASSWORD
+	    , USR.SALT
+	    , USR.USER_NAME
+	    , USR.USER_BIRTH
+	    , USR.PHONE
+	    , USR.EMAIL
+	    , USR.ADDRESS
+	    , USR.DETAIL_ADDRESS
+	    , USR.MEM_GRADE
+	    , USR.USE_YN
+	    , USR.JOIN_DATE
+	    , USR.LEAVE_DATE
+	    , USR.PWD_CHANGE_DATE
+	    , USR.PWD_ERR_CNT
+	    , USR.PLATFORM_TYPE
+	    , USR.MARKETING_CONSENT_YN
+	    , USR.MARKETING_RECEIVE_METHOD
+	    , USR.MARKETING_CONSENT_DATE
+	    , USR.ACCESSION_PATH
+	    , USR.INFLOW_PATH
+	</sql>
+
+	<select id="getUserList"
+		resultType="com.sonax.api.user.model.UserModel">
+		/* getUserList */
+		SELECT
+		<include refid="userFields"/>
+		FROM T_USER USR
+		ORDER BY USER_ID		
+	</select>
+	
+	<select id="getUserById"
+		parameterType="com.sonax.api.user.model.UserModel"
+		resultType="com.sonax.api.user.model.UserModel">
+		/* getUserById */
+		SELECT
+		<include refid="userFields"/>
+		FROM T_USER USR
+		WHERE USR.USER_ID = #{userId, jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertUser"
+		parameterType="com.sonax.api.user.model.UserModel">
+		/* insertUser */
+		INSERT INTO T_USER (
+			USER_ID, USER_GROUP_ID, PASSWORD, SALT, USER_NAME, USER_BIRTH
+			, PHONE, EMAIL, ADDRESS, DETAIL_ADDRESS, MEM_GRADE, USE_YN
+			, JOIN_DATE, LEAVE_DATE, PWD_CHANGE_DATE, PWD_ERR_CNT, PLATFORM_TYPE
+			, MARKETING_CONSENT_YN, MARKETING_RECEIVE_METHOD
+			, MARKETING_CONSENT_DATE, ACCESSION_PATH, INFLOW_PATH
+		)
+		VALUES (
+			#{userId, jdbcType=VARCHAR}
+			, #{userGroupId, jdbcType=INTEGER}
+			, #{password, jdbcType=VARCHAR}
+			, #{salt, jdbcType=VARCHAR}
+			, #{userName, jdbcType=VARCHAR}
+			, #{userBirth, jdbcType=VARCHAR}
+			, #{phone, jdbcType=VARCHAR}
+			, #{email, jdbcType=VARCHAR}
+			, #{address, jdbcType=VARCHAR}
+			, #{detailAddress, jdbcType=VARCHAR}
+			, #{memGrade, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=CHAR}
+			, #{joinDate, jdbcType=VARCHAR}
+			, #{leaveDate, jdbcType=VARCHAR}
+			, #{pwdChangeDate, jdbcType=VARCHAR}
+			, #{pwdErrCnt, jdbcType=INTEGER}
+			, #{platformType, jdbcType=VARCHAR}
+			, #{marketingConsentYn, jdbcType=VARCHAR}
+			, #{marketingReceiveMethod, jdbcType=VARCHAR}
+			, #{marketingConsentDate, jdbcType=VARCHAR}
+			, #{accessionPath, jdbcType=VARCHAR}
+			, #{inflowPath, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="updateUserById"
+		parameterType="com.sonax.api.user.model.UserModel">
+		/* updateUserById */
+		UPDATE T_USER SET
+		    USER_GROUP_ID =  #{userGroupID, jdbcType=INTEGER}
+		    , PASSWORD = #{password, jdbcType=VARCHAR}
+		    , SALT = #{salt, jdbcType=VARCHAR}
+		    , USER_NAME = #{userName, jdbcType=VARCHAR}
+		    , USER_BIRTH = #{userBirth, jdbcType=VARCHAR}
+		    , PHONE = #{phone, jdbcType=VARCHAR}
+		    , EMAIL = #{email, jdbcType=VARCHAR}
+		    , ADDRESS = #{address, jdbcType=VARCHAR}
+		    , DETAIL_ADDRESS = #{detailAddress, jdbcType=VARCHAR}
+		    , MEM_GRADE = #{memGrade, jdbcType=VARCHAR}
+		    , USE_YN = #{useYn, jdbcType=CHAR}
+		    , JOIN_DATE = #{joinDate, jdbcType=VARCHAR}
+		    , LEAVE_DATE = #{leaveDate, jdbcType=VARCHAR}
+		    , PWD_CHANGE_DATE = #{pwdChangeDate, jdbcType=VARCHAR}
+		    , PWD_ERR_CNT = #{pwdErrCnt, jdbcType=INTEGER}
+		    , PLATFORM_TYPE = #{platformType, jdbcType=VARCHAR}
+		    , MARKETING_CONSENT_YN = #{marketingConsentYn, jdbcType=VARCHAR}
+		    , MARKETING_RECEIVE_METHOD = #{marketingReceiveMethod, jdbcType=VARCHAR}
+		    , MARKETING_CONSENT_DATE = #{marketingConsentDate, jdbcType=VARCHAR}
+		    , ACCESSION_PATH = #{accessionPath, jdbcType=VARCHAR}
+		    , INFLOW_PATH = #{inflowPath, jdbcType=VARCHAR}
+		WHERE USER ID = #{userId, jdbcType=VARCHAR}		
+	</update>
+	
+	<update id="updatePwdById" 
+		parameterType="com.sonax.api.user.model.UserModel">
+		UPDATE T_USER SET
+			PASSWORD = #{password, jdbcType=VARCHAR}
+			, SALT = #{salt, jdbcType=VARCHAR}
+			, PWD_CHANGE_DATE = NOW()
+		WHERE USER_ID = #{userId, jdbcType=VARCHAR}		
+	</update>
+	
+	<delete id="deleteUserById"
+		parameterType="com.sonax.api.user.model.UserModel">
+		/* deleteUserById */
+		DELETE FROM T_USER
+		WHERE USER_ID = #{userId, jdbcType=VARCHAR}		  	
+	</delete>	
+</mapper>
