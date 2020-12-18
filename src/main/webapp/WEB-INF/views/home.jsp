@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
-
 <c:set var="jsKey" value="e0a816d9a8b32217e589b55d16538674"></c:set>
 <c:set var="restKey" value="b133392134b7c019eedc99601b78c0ef"></c:set>
 
@@ -31,7 +30,7 @@
 
 <script>
 $(function(){
-	$.ajax({
+	/* $.ajax({
         url:'/api/user/test.do',
         type:'POST',
 	    success:function(data){
@@ -40,7 +39,7 @@ $(function(){
 	    error : function(e){
 			console.log(e);
 	    }
-	});
+	}); */
 	
 	// 마커를 표시할 위치와 title 객체 배열입니다 
 	var positions = [

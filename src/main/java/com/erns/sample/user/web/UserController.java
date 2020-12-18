@@ -17,10 +17,10 @@ public class UserController {
 	@Resource(name="userService")
 	private UserService userService;
 	
-	@RequestMapping("/test.do")
+	/*@RequestMapping("/test.do")
 	@ResponseBody
     public AjaxResult test(HttpServletRequest request) {
 		ReturnObjectModel retObj = userService.userList();		
     	return new AjaxResult(retObj);
-    }
+    }*/
 }

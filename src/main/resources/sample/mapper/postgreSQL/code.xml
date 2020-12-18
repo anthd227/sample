@@ -1,6 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sonax.api">
+<mapper namespace="com.sonax.api.code.dao.CodeDao">
 	
-
+	<sql id="groupCodeFields">
+		GC.GROUP_CODE
+		, GC.GROUP_CODE_NAME
+		, GC.GROUP_CODE_DESC
+		, GC.USE_YN
+		, GC.REG_ID 
+		, TO_CHARE(GC.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE 
+		, GC.UDT_ID
+		, TO_CHAR(GC.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS UDT_DATE
+	</sql>
+	
+	<sql id="codeFields">
+		CODE.GROUP_CODE
+		, CODE.CODE
+		, CODE.CODE_NAME
+		, CODE.CODE_DESC
+		, CODE.SYSTEM_CODE_YN
+		, CODE.CODE_ORDER
+		, CODE.USE_YN
+		, CODE.REG_ID
+		, TO_CHARE(CODE.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE 
+		, CODE.UDT_ID
+		, TO_CHAR(CODE.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS UDT_DATE
+	</sql>
+	
+	<!-- GROUP CODE -->
+	<select id="getGroupCodeList"
+		resultType="com.sonax.api.code.model.GroupCodeModel">
+		/* com.sonax.api.code.dao.CodeDao.getGroupCodeList */
+		SELECT 
+			<include refid="groupCodeFields"/>
+		FROM T_GROUP_CODE GC
+	</select>
+	
+	<select id="getGroupCodeByGroupCode"
+		parameterType="com.sonax.api.code.model.GroupCodeModel"
+		resultType="com.sonax.api.code.model.GroupCodeModel">
+		/* com.sonax.api.code.dao.CodeDao.getGroupCodeByGroupCode */
+		SELECT 
+			<include refid="groupCodeFields"/>
+		FROM T_GROUP_CODE GC
+		WHERE GC.GROUP_CODE = #{groupCode, jdbcType=VARCHAR}
+	</select>
+		
+	<insert id="insertGroupCode"
+		parameterType="com.sonax.api.code.model.GroupCodeModel">
+		/* com.sonax.api.code.dao.CodeDao.insertGroupCode */
+		INSERT INTO T_GROUP_CODE (
+			GROUP_CODE, GROUP_CODE_NAME, GROUP_CODE_DESC
+			, USE_YN, REG_ID, REG_DATE
+		)
+		VALUES (
+			#{groupCode, jdbcType=VARCHAR}
+			, #{groupCodeName, jdbcType=VARCHAR}
+			, #{groupCodeDesc, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=CHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateGroupCode"
+		parameterType="com.sonax.api.code.model.GroupCodeModel">
+		/* com.sonax.api.code.dao.CodeDao.updateGroupCode */
+		UPDATE T_GROUP_CODE SET
+		  	GROUP_CODE_NAME = #{groupCodeName, jdbcType=VARCHAR}
+		  	, GROUP_CODE_DESC =  #{groupCodeDesc, jdbcType=VARCHAR}
+			, USE_YN = #{useYn, jdbcType=CHAR}
+			, UDT_ID = #{udtId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
+	</update>
+	
+	<delete id="deleteGroupCode"
+		parameterType="com.sonax.api.code.model.GroupCodeModel">
+		/* com.sonax.api.code.dao.CodeDao.deleteGroupCode */
+		DELETE FROM T_GROUP_CODE
+		WHERE GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
+	</delete>
+	
+	<!-- CODE -->
+	<select id="getCodeList"
+		resultType="com.sonax.api.code.model.CodeModel">
+		/* com.sonax.api.code.dao.CodeDao.getCodeList */
+		SELECT 
+			<include refid="codeFields"/>
+		FROM T_CODE CODE
+	</select>
+	
+	<select id="getCode"
+		resultType="com.sonax.api.code.model.CodeModel">
+		/* com.sonax.api.code.dao.CodeDao.getCodeByCodeId */
+		SELECT 
+			<include refid="codeFields"/>
+		FROM T_CODE CODE
+		WHERE CODE.GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
+		AND CODE.CODE = #{code, jdbcType=VARCHAR}	
+	</select>
+	
+	<insert id="insertCode"
+		parameterType="com.sonax.api.code.model.CodeModel">
+		/* com.sonax.api.code.dao.CodeDao.insertCode */
+		INSERT INTO T_CODE (
+			GROUP_CODE, CODE, CODE_NAME, CODE_DESC, SYSTEM_CODE_YN
+			, CODE_ORDER, USE_YN, REG_ID, REG_DATE	
+		)
+		VALUES (
+			#{groupCode, jdbcType=VARCHAR}	
+			, #{code, jdbcType=VARCHAR}	
+			, #{codeName, jdbcType=VARCHAR}	
+			, #{codeDesc, jdbcType=VARCHAR}	
+			, #{SystemCodeYn, jdbcType=CHAR}	
+			, #{codeOrder, jdbcType=INTEGER}	
+			, #{useYn, jdbcType=CHAR}	
+			, #{regId, jdbcType=VARCHAR}
+			, NOW()	
+		)
+	</insert>
+	
+	<update id="updateCode" 
+		parameterType="com.sonax.api.code.model.CodeModel">
+		/* com.sonax.api.code.dao.CodeDao.updateCode */
+		UPDATE T_CODE SET
+			CODE_NAME = #{codeName, jdbcType=VARCHAR}
+			, CODE_DESC = #{codeDesc, jdbcType=VARCHAR}
+			, SYSTEM_CODE_YN = #{systemCodeYn, jdbcType=CHAR}
+			, CODE_ORDER = #{codeOrder, jdbcType=INTEGER}
+			, USE_YN = #{useYn, jdbcType=CHAR}	
+			, UDT_ID = #{udtId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
+		AND CODE = #{code, jdbcType=VARCHAR}	
+	</update>
+	
+	<delete id="deleteCodeByCode"
+		parameterType="com.sonax.api.code.model.CodeModel">
+		/* com.sonax.api.code.dao.CodeDao.deleteCodeByCode */
+		DELETE FROM T_CODE
+		WHERE GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
+		AND CODE = #{code, jdbcType=VARCHAR}	
+	</delete>
+	
+	<insert id="insertTest"
+		parameterType="com.sonax.api.code.model.GroupCodeModel">
+		insert into t_group_code
+		(group_code, group_code_name)
+		values (#{groupCode}, #{groupCodeName})
+	</insert>
 </mapper>

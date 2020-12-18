@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sonax.api">
+<mapper namespace="com.sonax.api.user.dao.UserDao">
+	
 	<sql id="userFields">
 		USR.USER_ID
 	    , USR.USER_GROUP_ID
@@ -28,17 +29,17 @@
 
 	<select id="getUserList"
 		resultType="com.sonax.api.user.model.UserModel">
-		/* getUserList */
+		/* com.sonax.api.user.dao.UserDao.getUserList */
 		SELECT
 		<include refid="userFields"/>
 		FROM T_USER USR
 		ORDER BY USER_ID		
 	</select>
 	
-	<select id="getUserById"
+	<select id="getUserByUserId"
 		parameterType="com.sonax.api.user.model.UserModel"
 		resultType="com.sonax.api.user.model.UserModel">
-		/* getUserById */
+		/* com.sonax.api.user.dao.UserDao.getUserById */
 		SELECT
 		<include refid="userFields"/>
 		FROM T_USER USR
@@ -47,7 +48,7 @@
 	
 	<insert id="insertUser"
 		parameterType="com.sonax.api.user.model.UserModel">
-		/* insertUser */
+		/* com.sonax.api.user.dao.UserDao.insertUser */
 		INSERT INTO T_USER (
 			USER_ID, USER_GROUP_ID, PASSWORD, SALT, USER_NAME, USER_BIRTH
 			, PHONE, EMAIL, ADDRESS, DETAIL_ADDRESS, MEM_GRADE, USE_YN
@@ -83,7 +84,7 @@
 	
 	<update id="updateUserById"
 		parameterType="com.sonax.api.user.model.UserModel">
-		/* updateUserById */
+		/* com.sonax.api.user.dao.UserDao.updateUserById */
 		UPDATE T_USER SET
 		    USER_GROUP_ID =  #{userGroupID, jdbcType=INTEGER}
 		    , PASSWORD = #{password, jdbcType=VARCHAR}
@@ -111,6 +112,7 @@
 	
 	<update id="updatePwdById" 
 		parameterType="com.sonax.api.user.model.UserModel">
+		/* com.sonax.api.user.dao.UserDao.updatePwdById */
 		UPDATE T_USER SET
 			PASSWORD = #{password, jdbcType=VARCHAR}
 			, SALT = #{salt, jdbcType=VARCHAR}
@@ -120,7 +122,7 @@
 	
 	<delete id="deleteUserById"
 		parameterType="com.sonax.api.user.model.UserModel">
-		/* deleteUserById */
+		/* com.sonax.api.user.dao.UserDao.deleteUserById */
 		DELETE FROM T_USER
 		WHERE USER_ID = #{userId, jdbcType=VARCHAR}		  	
 	</delete>	

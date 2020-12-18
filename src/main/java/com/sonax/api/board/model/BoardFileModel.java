@@ -1,10 +1,10 @@
 package com.sonax.api.board.model;
 
-import java.sql.Date;
+import com.sonax.common.model.VersionBaseModel;
 
-public class BoardFileModel {
+public class BoardFileModel extends VersionBaseModel {
 	private int boardFileId; 
-	private int postId;       
+	private int boardId;       
 	private String fileNameDest;
 	private String fileName;     
 	private int fileSize;     
@@ -12,10 +12,6 @@ public class BoardFileModel {
 	private String filePath;     
 	private int fileOrder;    
 	private String delYn;        
-	private String regId;        
-	private Date regDate;      
-	private String udtId;        
-	private Date udtDate;
 	
 	public BoardFileModel() {
 		super();
@@ -29,12 +25,12 @@ public class BoardFileModel {
 		this.boardFileId = boardFileId;
 	}
 
-	public int getPostId() {
-		return postId;
+	public int getBoardId() {
+		return boardId;
 	}
 
-	public void setPostId(int postId) {
-		this.postId = postId;
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
 	}
 
 	public String getFileNameDest() {
@@ -93,36 +89,4 @@ public class BoardFileModel {
 		this.delYn = delYn;
 	}
 
-	public String getRegId() {
-		return regId;
-	}
-
-	public void setRegId(String regId) {
-		this.regId = regId;
-	}
-
-	public Date getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-
-	public String getUdtId() {
-		return udtId;
-	}
-
-	public void setUdtId(String udtId) {
-		this.udtId = udtId;
-	}
-
-	public Date getUdtDate() {
-		return udtDate;
-	}
-
-	public void setUdtDate(Date udtDate) {
-		this.udtDate = udtDate;
-	}
-	
 }

@@ -1,6 +1,340 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sonax.api">
+<mapper namespace="com.sonax.api.board.dao.BoardDao">
 	
+	<sql id="boardMasterFields">
+		MST.BOARD_MASTER_ID
+		, MST.BOARD_NAME
+		, MST.BOARD_TYPE
+		, MST.BOARD_DESC
+		, MST.FILE_ADD_YN
+		, MST.FILE_CNT
+		, MST.FILE_EXTENSION
+		, MST.USE_YN
+		, MST.REG_ID
+		, TO_CHAR(MST.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+		, MST.UDT_ID
+		, TO_CHAR(MST.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS UDT_DATE
+	</sql>
+	
+	<sql id="boardFields">
+		BOARD.BOARD_ID
+		, BOARD.BOARD_MASTER_ID
+		, BOARD.TITLE
+		, BOARD.CONTENT
+		, BOARD.WRITER_ID
+		, BOARD.WRITER_NAME
+		, BOARD.POPUP_YN
+		, BOARD.VIEWS
+		, BOARD.ADMIN_DELETE_YN
+		, BOARD.DEL_YN
+		, BOARD.GROUP_NO
+		, BOARD.DELETION_REASON
+		, BOARD.GROUP_ORDER
+		, BOARD.START_DATE
+		, BOARD.END_DATE
+		, BOARD.BP.REG_ID
+		, TO_CHAR(BOARD.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+		, BOARD.UDT_ID
+		, TO_CHAR(BOARD.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+	</sql>
+	
+	<sql id="commentFields">
+		CMT.COMMENT_ID
+		, CMT.BOARD_ID
+		, CMT.COMMENT_WRITER
+		, CMT.COMMENT_CONTENT
+		, CMT.DEL_YN
+		, CMT.ADMIN_DELETE_YN
+		, CMT.DELETION_REASON
+		, CMT.COMMENT_GROUP_ID
+		, CMT.COMMENT_ORDER
+		, CMT.REG_ID
+		, TO_CHAR(CMT.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+		, CMT.UDT_ID
+		, TO_CHAR(CMT.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+	</sql>
 
+	<sql id="boardFileFields">
+		 FILE.BOARD_FILE_ID
+		, FILE.BOARD_ID
+		, FILE.FILE_NAME_DEST
+		, FILE.FILE_NAME
+		, FILE.FILE_SIZE
+		, FILE.FILE_EXTENSION
+		, FILE.FILE_PATH
+		, FILE.FILE_ORDER
+		, FILE.DEL_YN
+		, FILE.REG_ID
+		, TO_CHAR(FILE.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+		, FILE.UDT_ID
+		, TO_CHAR(FILE.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+	</sql>
+	
+	<!-- BOARD MASTER -->
+	<select id="getBoardMasterList"
+		resultType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardMasterList */
+		SELECT 
+			<include refid="boardMasterFields"/>
+		FROM T_BOARD_MASTER MST
+	</select>
+	
+	<select id="getBoardMasterById"
+		resultType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardMasterById */
+		SELECT 
+			<include refid="boardMasterFields"/>
+		FROM T_BOARD_MASTER MST
+		WHERE MST.BOARD_MASTER_ID = #{boardMasterId, jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insertBoardMaster"
+		useGeneratedKeys="true" keyProperty="boardMasterId"
+		parameterType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.insertBoardMaster */
+		INSERT INTO T_BOARD_MASTER(
+			BOARD_NAME, BOARD_TYPE, BOARD_DESC, FILE_ADD_YN, FILE_CNT
+			, FILE_EXTENSION, USE_YN, REG_ID, REG_DATE, UDT_ID, UDT_DATE
+		)
+		VALUES (
+			#{boardName, jdbcType=VARCHAR}
+			, #{boardType, jdbcType=VARCHAR}
+			, #{boardDesc, jdbcType=VARCHAR}
+			, #{fileAddYn, jdbcType=CHAR}
+			, #{fileCnt, jdbcType=INTEGER}
+			, #{fileExtension, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=CHAR}
+			,#{useYn, jdbcType=CHAR}
+			, NOW()
+		)	
+	</insert>
+	
+	<update id="updateBoardMaster"
+		parameterType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.updateBoardMaster */	
+		UPDATE T_BOARD_MASTER SET
+			BOARD_NAME = #{boardName, jdbcType=VARCHAR}
+			, BOARD_TYPE = #{boardType, jdbcType=VARCHAR}
+			, BOARD_DESC = #{boardDesc, jdbcType=VARCHAR}
+			, FILE_ADD_YN = #{fileAddYn, jdbcType=CHAR}
+			, FILE_CNT = {fileCnt, jdbcType=INTEGER}
+			, FILE_EXTENSION = #{fileExtension, jdbcType=VARCHAR}
+			, USE_YN = #{useYn, jdbcType=CHAR}
+			, UDT_ID = #{udtId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE BOARD_MASTER_ID = #{boardMasterId, jdbcType=INTEGER}	
+	</update>
+	
+	<delete id="deleteBoardMasterById"
+		parameterType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.deleteBoardMasterById */	
+		DELETE FROM T_BOARD_MASTER 
+		WHERE BOARD_MASTER_ID = #{boardMasterId, jdbcType=INTEGER}	
+	</delete>
+	
+	<!-- BOARD -->
+	<select id="getBoardList"
+		resultType="com.sonax.api.board.model.BoardModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardList */
+		SELECT 
+			<include refid="boardFields"/>	
+		FROM T_BOARD BOARD
+	</select>
+	
+	<select id="getBoardById"
+		parameterType="com.sonax.api.board.model.BoardModel"
+		resultType="com.sonax.api.board.model.BoardModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardById */
+		SELECT 
+			<include refid="boardFields"/>
+		FROM T_BOARD BOARD
+		WHERE BOARD.BOARD_ID = #{boardId, jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insertBoard"
+		parameterType="com.sonax.api.board.model.BoardModel">
+		/* com.sonax.api.board.dao.BoardDao.insertBoard */
+		INSERT INTO T_BOARD(
+			BOARD_MASTER_ID, TITLE, CONTENT, WRITER_ID, WRITER_NAME
+			, POPUP_YN, GROUP_ID, GROUP_ORDER, DEL_YN, ADMIN_DELETE_YN
+			, DELETION_REASON, VIEWS, START_DATE, END_DATE, REG_ID, REG_DATE
+		)
+		VALUES (
+			#{boardMasterId, jdbcType=INTEGER}
+			, #{title, jdbcType=VARCHAR}
+			, #{content, jdbcType=VARCHAR}
+			, #{writerId, jdbcType=VARCHAR}
+			, #{writerName, jdbcType=VARCHAR}
+			, #{popupYn, jdbcType=CHAR}
+			, #{groupId, jdbcType=INTEGER}
+			, #{groupOrder, jdbcType=INTEGER}
+			, #{delYn, jdbcType=CHAR}
+			, #{adminDeleteYn, jdbcType=CHAR}
+			, #{deleteReason, jdbcType=VARCHAR}
+			, #{views, jdbcType=INTEGER}
+			, #{startDate, jdbcType=VARCHAR}
+			, #{endDate, jdbcType=VARCHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, NOW()
+		)			
+	</insert>
+	
+	<update id="updateBoard"
+		parameterType="com.sonax.api.board.model.BoardModel">
+		/* com.sonax.api.board.dao.BoardDao.updateBoard */
+		UPDATE T_BOARD SET
+			TITLE = #{title, jdbcType=VARCHAR}
+			, CONTENT = #{content, jdbcType=VARCHAR}
+			, WRITER_ID = #{writerId, jdbcType=VARCHAR}
+			, WRITER_NAME = #{writerName, jdbcType=VARCHAR}
+			, POPUP_YN = #{popupYn, jdbcType=CHAR}
+			, GROUP_ID = #{groupId, jdbcType=INTEGER}
+			, GROUP_ORDER = #{groupOrder, jdbcType=INTEGER} 
+			, DEL_YN = #{delYn, jdbcType=CHAR}
+			, ADMIN_DELETE_YN = #{adminDeleteYn, jdbcType=CHAR}
+			, DELETION_REASON = #{deleteReason, jdbcType=VARCHAR}
+			, VIEWS = #{views, jdbcType=INTEGER}
+			, START_DATE = #{startDate, jdbcType=VARCHAR}
+			, END_DATE = #{endDate, jdbcType=VARCHAR}
+			, UDT_ID = #{udtId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE BOARD_ID = #{boardId, jdbcType=INTEGER}	
+	</update>
+	
+	<delete id="deleteBoardById">
+		/* com.sonax.api.board.dao.BoardDao.deleteBoardById */
+		DELETE FROM T_BOARD
+		WHERE BOARD_ID = #{boardId, jdbcType=INTEGER}	
+	</delete>
+	
+	<!-- BOARD COMMENT -->
+	<select id="getCommentList"
+		resultType="com.sonax.api.board.model.CommentModel">
+		/* com.sonax.api.board.dao.BoardDao.getCommentList */
+		SELECT 
+			<include refid="commentFields"/>
+		FROM T_BOARD_COMMENT CMT
+		ORDER BY CMT.COMMENT_ID DESC
+	</select>
+	
+	<select id="getCommentById"
+		parameterType="com.sonax.api.board.model.CommentModel"
+		resultType="com.sonax.api.board.model.CommentModel">
+		/* com.sonax.api.board.dao.BoardDao.getCommentById */
+		SELECT 
+			<include refid="commentFields"/>
+		FROM T_BOARD_COMMENT CMT
+		WHERE CMT.BOARD_ID = #{boardId, jdbcType=INTEGER}	
+	</select>
+	
+	<insert id="insertComment"
+		parameterType="com.sonax.api.board.model.CommentModel">
+		/* com.sonax.api.board.dao.BoardDao.insertComment */
+		INSERT INTO T_BOARD_COMMENT (
+			BOARD_ID, COMMENT_WRITER, COMMENT_CONTENT
+			, DEL_YN, ADMIN_DELETE_YN, DELETION_REASON, COMMENT_GROUP_ID
+			, COMMENT_ORDER, REG_ID, REG_DATE
+		)
+		VALUES (
+			#{boardId, jdbcType=INTEGER}	
+			, #{commentId, jdbcType=INTEGER}		
+			, #{commentContent, jdbcType=VARCHAR}	
+			, #{delYn, jdbcType=CHAR}	
+			, #{adminDeleteYn, jdbcType=CHAR}	
+			, #{deletionReason, jdbcType=VARCHAR}	
+			, #{commentGroupId, jdbcType=INTEGER}	
+			, #{commentOrder, jdbcType=INTEGER}	
+			, #{regId, jdbcType=VARCHAR}	
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateComment"
+		parameterType="com.sonax.api.board.model.CommentModel">
+		/* com.sonax.api.board.dao.BoardDao.updateComment */
+		UPDATE T_BOARD_COMMENT SET
+			COMMENT_WRITER = #{commentId, jdbcType=INTEGER}	
+			, COMMENT_CONTENT = #{commentContent, jdbcType=VARCHAR}	
+			, ADMIN_DELETE_YN = #{delYn, jdbcType=CHAR}	
+			, DEL_YN = #{adminDeleteYn, jdbcType=CHAR}	
+			, DELETION_REASON = #{deletionReason, jdbcType=VARCHAR}
+			, COMMENT_GROUP_ID = #{commentGroupId, jdbcType=INTEGER}	
+			, COMMENT_ORDER = #{commentOrder, jdbcType=INTEGER}	
+			, UDT_ID =  #{udtId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE COMMENT_ID = #{commentId, jdbcType=INTEGER}		
+	</update>
+	
+	<delete id="deleteCommentById"
+		parameterType="com.sonax.api.board.model.CommentModel">
+		/* com.sonax.api.board.dao.BoardDao.deleteCommentById */
+	 	DELETE FROM T_BOARD_COMMENT
+	 	WHERE COMMENT_ID = #{commentId, jdbcType=INTEGER}
+	</delete>
+	
+	<!-- BOARD FILE -->
+	<select id="getBoardFileList"
+		resultType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardFileList */
+		SELECT 
+			<include refid="boardFileFields"/>
+		FROM T_BOARD_FILE FILE
+		ORDER BY FILE.FILE_ID DESC
+	</select>
+	
+	<select id="getBoardFileById"
+		parameterType="com.sonax.api.board.model.BoardFileModel"
+		resultType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardFileById */
+		SELECT 
+			<include refid="boardFileFields"/>
+		FROM T_BOARD_FILE FILE
+		WHERE FILE.FILE_ID = #{fileId, jdbcType=VARCHAR} 	
+	</select>
+	
+	<insert id="insertBoardFile"
+		useGeneratedKeys="true" keyProperty="fileId"
+		parameterType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.insertBoardFile */
+		INSERT INTO T_BOARD_FILE(
+			BOARD_ID, FILE_NAME_DEST, FILE_NAME, FILE_SIZE, FILE_EXTENSION
+			, FILE_PATH, FILE_ORDER, DEL_YN, REG_ID, REG_DATE
+		)
+		VALUES (
+			#{boardId, jdbcType=INTEGER}
+			, #{fileNameDest, jdbcType=VARCHAR}
+			, #{fileName, jdbcType=VARCHAR}
+			, #{fileSize, jdbcType=INTEGER}
+			, #{fileExtension, jdbcType=VARCHAR}
+			, #{filePath, jdbcType=VARCHAR}
+			, #{fileOrder, jdbcType=INTEGER}
+			, #{delYn, jdbcType=CHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateBoardFile"
+		parameterType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.updateBoardFile */
+		UPDATE T_BOARD_FILE SET
+			FILENAMEDEST = #{fileNameDest, jdbcType=VARCHAR} 
+			, FILENAME = #{fileName, jdbcType=VARCHAR}
+			, FILESIZE = #{fileSize, jdbcType=INTEGER}
+			, FILEEXTENSION = #{fileExtension, jdbcType=VARCHAR}
+			, FILEPATH = #{filePath, jdbcType=VARCHAR}
+			, FILEORDER = #{fileOrder, jdbcType=INTEGER}
+			, DELYN = #{delYn, jdbcType=CHAR}
+			, UDTID = #{udtId, jdbcType=VARCHAR}
+			, UDTDATE = NOW()
+		WHERE FILE_ID = #{fileId, jdbcType=VARCHAR} 	
+	</update>
+	
+	<delete id="deleteBoardFileById"
+		parameterType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.deleteBoardFileById */
+		DELETE FROM T_BOARD_FILE
+		WHERE FILE_ID = #{fileId, jdbcType=VARCHAR} 
+	</delete>
 </mapper>

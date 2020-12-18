@@ -2,7 +2,9 @@ package com.sonax.api.file.model;
 
 import java.sql.Date;
 
-public class FileModel {
+import com.sonax.common.model.VersionBaseModel;
+
+public class FileModel extends VersionBaseModel {
 
 	private int fileId;
 	private String refCode; // 대상 테이블(메뉴)명 
@@ -14,10 +16,6 @@ public class FileModel {
 	private String fileExtension;
 	private String filePath;
 	private String delYn;
-	private String regId;
-	private Date regDate;
-	private String udtId;
-	private Date udtDate;
 	
 	public FileModel() {
 		super();
@@ -81,30 +79,6 @@ public class FileModel {
 	}
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
-	}
-	public String getRegId() {
-		return regId;
-	}
-	public void setRegId(String regId) {
-		this.regId = regId;
-	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-	public String getUdtId() {
-		return udtId;
-	}
-	public void setUdtId(String udtId) {
-		this.udtId = udtId;
-	}
-	public Date getUdtDate() {
-		return udtDate;
-	}
-	public void setUdtDate(Date udtDate) {
-		this.udtDate = udtDate;
 	}
 	
 }

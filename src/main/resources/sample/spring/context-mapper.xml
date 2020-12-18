@@ -11,15 +11,15 @@
 		<property name="configLocation" value="classpath:/sample/mapper/sql-mapper-config.xml" />
 		<property name="mapperLocations" >
 			<list>
-				<value>classpath:/sample/mapper/mysql/*.xml</value>
-				<value>classpath:/sample/mapper/mysql/*/*.xml</value>
+				<value>classpath:/sample/mapper/postgreSQL/*.xml</value>
+				<value>classpath:/sample/mapper/postgreSQL/*/*.xml</value>
 			</list>
 		</property>
 	</bean>
 
 	<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->
  	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
-		<property name="basePackage" value="com.erns.*" />		
+		<property name="basePackage" value="com.sonax.*" />		
 		<property name="sqlSessionFactoryBeanName" value="sqlSession" />
 	</bean>
 

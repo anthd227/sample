@@ -1,4 +1,4 @@
-package com.erns.sample;
+package com.sonax;
 
 import java.text.DateFormat;
 import java.util.Date;

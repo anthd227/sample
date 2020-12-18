@@ -1,8 +1,8 @@
 package com.sonax.api.board.model;
 
-import java.sql.Date;
+import com.sonax.common.model.VersionBaseModel;
 
-public class BoardMasterModel {
+public class BoardMasterModel extends VersionBaseModel {
 	private int boardId;
 	private String boardName;
 	private String boardType;
@@ -11,10 +11,6 @@ public class BoardMasterModel {
 	private int fileCnt; // 첨부가능한 파일 개수
 	private String fileExtension; // 첨부가능한 파일 종류
 	private String useYn;
-	private String regId;
-	private Date regDate;
-	private String udtId;
-	private Date udtDate;
 	
 	public BoardMasterModel() {
 		super();
@@ -84,36 +80,4 @@ public class BoardMasterModel {
 		this.useYn = useYn;
 	}
 
-	public String getRegId() {
-		return regId;
-	}
-
-	public void setRegId(String regId) {
-		this.regId = regId;
-	}
-
-	public Date getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-
-	public String getUdtId() {
-		return udtId;
-	}
-
-	public void setUdtId(String udtId) {
-		this.udtId = udtId;
-	}
-
-	public Date getUdtDate() {
-		return udtDate;
-	}
-
-	public void setUdtDate(Date udtDate) {
-		this.udtDate = udtDate;
-	}
-	
 }

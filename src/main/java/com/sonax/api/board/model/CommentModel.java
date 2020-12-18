@@ -1,21 +1,17 @@
 package com.sonax.api.board.model;
 
-import java.sql.Date;
+import com.sonax.common.model.VersionBaseModel;
 
-public class CommentModel {
+public class CommentModel extends VersionBaseModel {
 	private int commentId;     
 	private int postId;        
 	private String commentName;   
 	private String commentContent;
-	private String adminDeleteYn;
 	private String delYn;         
+	private String adminDeleteYn;
 	private String deletionReason;
-	private int cmtGroupId; // 부모댓글 id    
-	private int cmtGroupOrder;
-	private String regId;         
-	private Date regDate;       
-	private String udtId;         
-	private Date udtDate;
+	private int commentGroupId; // 부모댓글 id    
+	private int commentOrder;
 	
 	public CommentModel() {
 		super();
@@ -62,42 +58,17 @@ public class CommentModel {
 	public void setDeletionReason(String deletionReason) {
 		this.deletionReason = deletionReason;
 	}
-	public int getCmtGroupId() {
-		return cmtGroupId;
+	public int getCommentGroupId() {
+		return commentGroupId;
 	}
-	public void setCmtGroupId(int cmtGroupId) {
-		this.cmtGroupId = cmtGroupId;
+	public void setCommentGroupId(int commentGroupId) {
+		this.commentGroupId = commentGroupId;
 	}
-	public int getCmtGroupOrder() {
-		return cmtGroupOrder;
+	public int getCommentOrder() {
+		return commentOrder;
 	}
-	public void setCmtGroupOrder(int cmtGroupOrder) {
-		this.cmtGroupOrder = cmtGroupOrder;
+	public void setCommentOrder(int commentOrder) {
+		this.commentOrder = commentOrder;
 	}
-	public String getRegId() {
-		return regId;
-	}
-	public void setRegId(String regId) {
-		this.regId = regId;
-	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-	public String getUdtId() {
-		return udtId;
-	}
-	public void setUdtId(String udtId) {
-		this.udtId = udtId;
-	}
-	public Date getUdtDate() {
-		return udtDate;
-	}
-	public void setUdtDate(Date udtDate) {
-		this.udtDate = udtDate;
-	}
-	
 	
 }

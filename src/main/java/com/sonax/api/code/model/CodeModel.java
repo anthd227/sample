@@ -1,9 +1,8 @@
 package com.sonax.api.code.model;
 
-import java.sql.Date;
+import com.sonax.common.model.VersionBaseModel;
 
-public class CodeModel {
-	private int codeId; 
+public class CodeModel extends VersionBaseModel {
 	private String groupCode;
 	private String code;
 	private String codeName;
@@ -11,20 +10,11 @@ public class CodeModel {
 	private String systemCodeYn;
 	private int codeOrder;
 	private String useYn;
-	private String regId;
-	private Date regDate;
-	private String udtId;
-	private Date udtDate;
-	
+
 	public CodeModel() {
 		super();
 	}
-	public int getCodeId() {
-		return codeId;
-	}
-	public void setCodeId(int codeId) {
-		this.codeId = codeId;
-	}
+	
 	public String getGroupCode() {
 		return groupCode;
 	}
@@ -67,30 +57,5 @@ public class CodeModel {
 	public void setUseYn(String useYn) {
 		this.useYn = useYn;
 	}
-	public String getRegId() {
-		return regId;
-	}
-	public void setRegId(String regId) {
-		this.regId = regId;
-	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-	public String getUdtId() {
-		return udtId;
-	}
-	public void setUdtId(String udtId) {
-		this.udtId = udtId;
-	}
-	public Date getUdtDate() {
-		return udtDate;
-	}
-	public void setUdtDate(Date udtDate) {
-		this.udtDate = udtDate;
-	}
-	
-	
+
 }
