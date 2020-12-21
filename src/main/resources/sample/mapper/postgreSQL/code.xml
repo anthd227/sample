@@ -8,7 +8,7 @@
 		, GC.GROUP_CODE_DESC
 		, GC.USE_YN
 		, GC.REG_ID 
-		, TO_CHARE(GC.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE 
+		, TO_CHAR(GC.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE 
 		, GC.UDT_ID
 		, TO_CHAR(GC.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS UDT_DATE
 	</sql>
@@ -22,7 +22,7 @@
 		, CODE.CODE_ORDER
 		, CODE.USE_YN
 		, CODE.REG_ID
-		, TO_CHARE(CODE.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE 
+		, TO_CHAR(CODE.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE 
 		, CODE.UDT_ID
 		, TO_CHAR(CODE.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS UDT_DATE
 	</sql>
@@ -147,7 +147,7 @@
 	<insert id="insertTest"
 		parameterType="com.sonax.api.code.model.GroupCodeModel">
 		insert into t_group_code
-		(group_code, group_code_name)
-		values (#{groupCode}, #{groupCodeName})
+		(group_code, group_code_name, use_yn)
+		values (#{groupCode}, #{groupCodeName}, 'Y') 
 	</insert>
 </mapper>

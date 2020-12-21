@@ -11,6 +11,6 @@
 	</context:component-scan>
 
 	<context:annotation-config/>	<!--  registered for JavaConfig -->
-
+	<context:property-placeholder location="classpath:/sample/config/db.properties"/>
 
 </beans>
