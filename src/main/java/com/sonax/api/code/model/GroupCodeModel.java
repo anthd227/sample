@@ -34,4 +34,10 @@ public class GroupCodeModel extends VersionBaseModel {
 		this.useYn = useYn;
 	}
 	
+	@Override
+	public String toString() {
+		return "GroupCodeModel [groupCode=" + groupCode + ", groupCodeName=" + groupCodeName + ", groupCodeDesc="
+				+ groupCodeDesc + ", useYn=" + useYn + "]";
+	}
+	
 }

@@ -4,6 +4,8 @@
 <c:set var="jsKey" value="e0a816d9a8b32217e589b55d16538674"></c:set>
 <c:set var="restKey" value="b133392134b7c019eedc99601b78c0ef"></c:set>
 
+<jsp:forward page="/weather/weatherPage.do"></jsp:forward>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <!-- kakao map -->

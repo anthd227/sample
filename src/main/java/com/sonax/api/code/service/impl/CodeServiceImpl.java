@@ -20,7 +20,7 @@ public class CodeServiceImpl implements CodeService {
 	@Override
 	public List<GroupCodeModel> getGroupCodeList() throws Exception{
 		
-		return null;
+		return codeDao.getGroupCodeList();
 	}
 
 	@Override
