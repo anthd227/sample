@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.sonax.api.code.dao.CodeDao;
+import com.sonax.api.code.model.CodeMasterModel;
 import com.sonax.api.code.model.CodeModel;
-import com.sonax.api.code.model.GroupCodeModel;
 import com.sonax.api.code.service.CodeService;
 
 @Service("codeService")
@@ -18,31 +18,31 @@ public class CodeServiceImpl implements CodeService {
 	private CodeDao codeDao;
 
 	@Override
-	public List<GroupCodeModel> getGroupCodeList() throws Exception{
+	public List<CodeMasterModel> getGroupCodeList() throws Exception{
 		
 		return codeDao.getGroupCodeList();
 	}
 
 	@Override
-	public GroupCodeModel getGroupCodeByGroupCode(GroupCodeModel groupCodeModel) throws Exception{
+	public CodeMasterModel getGroupCodeByGroupCode(CodeMasterModel codeMasterModel) throws Exception{
 		
 		return null;
 	}
 
 	@Override
-	public int insertGroupCode(GroupCodeModel groupCodeModel) throws Exception{
+	public int insertGroupCode(CodeMasterModel codeMasterModel) throws Exception{
 		
 		return 0;
 	}
 
 	@Override
-	public int updateGroupCode(GroupCodeModel groupCodeModel) throws Exception{
+	public int updateGroupCode(CodeMasterModel codeMasterModel) throws Exception{
 		
 		return 0;
 	}
 
 	@Override
-	public int deleteGroupCode(GroupCodeModel groupCodeModel) throws Exception{
+	public int deleteGroupCode(CodeMasterModel codeMasterModel) throws Exception{
 
 		return 0;
 	}
@@ -77,10 +77,5 @@ public class CodeServiceImpl implements CodeService {
 		return 0;
 	}
 
-	@Override
-	public int insertTest(GroupCodeModel groupCodeModel) throws Exception {
-		System.out.println("@@@@");
-		return codeDao.insertTest(groupCodeModel);
-	}
 
 }

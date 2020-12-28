@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sonax.api.board.dao.BoardDao">
+	
+	<sql id="boardFileFields">
+		 FILE.BOARD_FILE_ID
+		, FILE.BOARD_ID
+		, FILE.FILE_NAME_DEST
+		, FILE.FILE_NAME
+		, FILE.FILE_SIZE
+		, FILE.FILE_EXTENSION
+		, FILE.FILE_PATH
+		, FILE.FILE_ORDER
+		, FILE.DEL_YN
+		, FILE.REG_ID
+		, TO_CHAR(FILE.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+		, FILE.UDT_ID
+		, TO_CHAR(FILE.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+	</sql>
+	
+	<!-- BOARD FILE -->
+	<select id="getBoardFileList"
+		resultType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardFileList */
+		SELECT 
+			<include refid="boardFileFields"/>
+		FROM T_BOARD_FILE FILE
+		ORDER BY FILE.FILE_ID DESC
+	</select>
+	
+	<select id="getBoardFileById"
+		parameterType="com.sonax.api.board.model.BoardFileModel"
+		resultType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardFileById */
+		SELECT 
+			<include refid="boardFileFields"/>
+		FROM T_BOARD_FILE FILE
+		WHERE FILE.FILE_ID = #{fileId, jdbcType=VARCHAR} 	
+	</select>
+	
+	<insert id="insertBoardFile"
+		useGeneratedKeys="true" keyProperty="fileId"
+		parameterType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.insertBoardFile */
+		INSERT INTO T_BOARD_FILE(
+			BOARD_ID, FILE_NAME_DEST, FILE_NAME, FILE_SIZE, FILE_EXTENSION
+			, FILE_PATH, FILE_ORDER, DEL_YN, REG_ID, REG_DATE
+		)
+		VALUES (
+			#{boardId, jdbcType=INTEGER}
+			, #{fileNameDest, jdbcType=VARCHAR}
+			, #{fileName, jdbcType=VARCHAR}
+			, #{fileSize, jdbcType=INTEGER}
+			, #{fileExtension, jdbcType=VARCHAR}
+			, #{filePath, jdbcType=VARCHAR}
+			, #{fileOrder, jdbcType=INTEGER}
+			, #{delYn, jdbcType=CHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateBoardFile"
+		parameterType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.updateBoardFile */
+		UPDATE T_BOARD_FILE SET
+			FILENAMEDEST = #{fileNameDest, jdbcType=VARCHAR} 
+			, FILENAME = #{fileName, jdbcType=VARCHAR}
+			, FILESIZE = #{fileSize, jdbcType=INTEGER}
+			, FILEEXTENSION = #{fileExtension, jdbcType=VARCHAR}
+			, FILEPATH = #{filePath, jdbcType=VARCHAR}
+			, FILEORDER = #{fileOrder, jdbcType=INTEGER}
+			, DELYN = #{delYn, jdbcType=CHAR}
+			, UDTID = #{udtId, jdbcType=VARCHAR}
+			, UDTDATE = NOW()
+		WHERE FILE_ID = #{fileId, jdbcType=VARCHAR} 	
+	</update>
+	
+	<delete id="deleteBoardFileById"
+		parameterType="com.sonax.api.board.model.BoardFileModel">
+		/* com.sonax.api.board.dao.BoardDao.deleteBoardFileById */
+		DELETE FROM T_BOARD_FILE
+		WHERE FILE_ID = #{fileId, jdbcType=VARCHAR} 
+	</delete>
+</mapper>

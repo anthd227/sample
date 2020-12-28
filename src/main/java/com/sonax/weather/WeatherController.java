@@ -40,7 +40,6 @@ public class WeatherController {
 	@RequestMapping("/weatherPage.do")
 	public String weatherPage() {
 		try {
-			getWeather("1132068000", "local");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,50 +48,4 @@ public class WeatherController {
 		return "weather";
 	}
 	
-	public void getWeather(String localCode, String type) throws IOException {
-		String urlTxt = "";
-		if(type.equals("midTerm")) {
-			urlTxt = "https://www.weather.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=";
-		} else {
-			urlTxt = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=";
-		}
-		URL url = new URL(urlTxt + localCode);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		
-		if(conn.getResponseCode() == 200 && conn.getInputStream() != null) {
-			InputStream input = conn.getInputStream();
-			
-			String xml = IOUtils.toString(input);
-			JSONObject jObj = XML.toJSONObject(xml);
-			
-			String jsonStr = jObj.toString();
-			ObjectMapper mapper = new ObjectMapper();
-			Map<String, Object> map = new HashedMap<>();
-			map = mapper.readValue(jsonStr, new TypeReference<Map<String,Object>>(){});
-			
-			//전체출력
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			Object json = mapper.readValue(jObj.toString(), Object.class);
-			String output = mapper.writeValueAsString(json);
-			System.out.println(output);
-			
-			Map<String, Object> rss = (Map<String, Object>) map.get("rss");
-			Map<String, Object> channel = (Map<String, Object>) rss.get("channel");
-			Map<String, Object> item = (Map<String, Object>) channel.get("item");
-			Map<String, Object> description = (Map<String, Object>) item.get("description");
-			Map<String, Object> body = (Map<String, Object>) description.get("body");
-			
-			List<Map<String, Object>> data = null;
-			if(type.equals("midTerm")) {
-				data = (List<Map<String, Object>>) body.get("location");
-			} else {
-				data = (List<Map<String, Object>>) body.get("data"); 
-			}
-			
-			for(int ii = 0; ii < data.size(); ii++) {
-				Map<String, Object> weatherData = data.get(ii);
-				System.out.println(weatherData);
-			}
-		}
-	}
 }

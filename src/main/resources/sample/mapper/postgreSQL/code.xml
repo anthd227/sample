@@ -67,7 +67,7 @@
 		parameterType="com.sonax.api.code.model.CodeMasterModel">
 		/* com.sonax.api.code.dao.CodeDao.updateCodeMaster */
 		UPDATE T_CODE_MASTER SET
-		  	CODE_MST_NAME = #{codeMstName, jdbcType=VARCHAR}
+		  	CODE_MST_NM = #{codeMstNm, jdbcType=VARCHAR}
 		  	, CODE_MST_DESC =  #{codeMstDesc, jdbcType=VARCHAR}
 			, USE_YN = #{useYn, jdbcType=CHAR}
 			, UDT_ID = #{udtId, jdbcType=VARCHAR}
@@ -97,7 +97,7 @@
 		SELECT 
 			<include refid="codeFields"/>
 		FROM T_CODE CODE
-		WHERE CODE.GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
+		WHERE CODE.CODE_MST = #{codeMst, jdbcType=VARCHAR}	
 		AND CODE.CODE = #{code, jdbcType=VARCHAR}	
 	</select>
 	
@@ -105,13 +105,13 @@
 		parameterType="com.sonax.api.code.model.CodeModel">
 		/* com.sonax.api.code.dao.CodeDao.insertCode */
 		INSERT INTO T_CODE (
-			GROUP_CODE, CODE, CODE_NAME, CODE_DESC, SYSTEM_CODE_YN
+			CODE_MST, CODE, CODE_NM, CODE_DESC, SYSTEM_CODE_YN
 			, CODE_ORDER, USE_YN, REG_ID, REG_DATE	
 		)
 		VALUES (
-			#{groupCode, jdbcType=VARCHAR}	
+			#{codeMst, jdbcType=VARCHAR}	
 			, #{code, jdbcType=VARCHAR}	
-			, #{codeName, jdbcType=VARCHAR}	
+			, #{codeNm, jdbcType=VARCHAR}	
 			, #{codeDesc, jdbcType=VARCHAR}	
 			, #{SystemCodeYn, jdbcType=CHAR}	
 			, #{codeOrder, jdbcType=INTEGER}	
@@ -125,29 +125,21 @@
 		parameterType="com.sonax.api.code.model.CodeModel">
 		/* com.sonax.api.code.dao.CodeDao.updateCode */
 		UPDATE T_CODE SET
-			CODE_NAME = #{codeName, jdbcType=VARCHAR}
+			CODE_NM = #{codeNm, jdbcType=VARCHAR}
 			, CODE_DESC = #{codeDesc, jdbcType=VARCHAR}
 			, SYSTEM_CODE_YN = #{systemCodeYn, jdbcType=CHAR}
 			, CODE_ORDER = #{codeOrder, jdbcType=INTEGER}
 			, USE_YN = #{useYn, jdbcType=CHAR}	
 			, UDT_ID = #{udtId, jdbcType=VARCHAR}
 			, UDT_DATE = NOW()
-		WHERE GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
-		AND CODE = #{code, jdbcType=VARCHAR}	
+		WHERE CODE = #{code, jdbcType=VARCHAR}	
 	</update>
 	
 	<delete id="deleteCodeByCode"
 		parameterType="com.sonax.api.code.model.CodeModel">
 		/* com.sonax.api.code.dao.CodeDao.deleteCodeByCode */
 		DELETE FROM T_CODE
-		WHERE GROUP_CODE = #{groupCode, jdbcType=VARCHAR}	
-		AND CODE = #{code, jdbcType=VARCHAR}	
+		WHERE CODE = #{code, jdbcType=VARCHAR}	
 	</delete>
 	
-	<insert id="insertTest"
-		parameterType="com.sonax.api.code.model.GroupCodeModel">
-		insert into t_group_code
-		(group_code, group_code_name, use_yn)
-		values (#{groupCode}, #{groupCodeName}, 'Y') 
-	</insert>
 </mapper>

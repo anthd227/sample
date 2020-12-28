@@ -2,14 +2,15 @@ package com.sonax.api.board.service.impl;
 
 import java.util.List;
 
+import com.sonax.api.board.model.BoardCommentModel;
 import com.sonax.api.board.model.BoardFileModel;
 import com.sonax.api.board.model.BoardMasterModel;
 import com.sonax.api.board.model.BoardModel;
-import com.sonax.api.board.model.CommentModel;
 import com.sonax.api.board.service.BoardService;
 
 public class BoardServiceImpl implements BoardService {
 
+	// BoardMaster
 	@Override
 	public List<BoardMasterModel> getBoardMasterList() throws Exception {
 		
@@ -39,7 +40,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		return 0;
 	}
-
+	
+	// Board
 	@Override
 	public List<BoardModel> getBoardList() throws Exception {
 		
@@ -70,36 +72,50 @@ public class BoardServiceImpl implements BoardService {
 		return 0;
 	}
 
+	// BoardComment
 	@Override
-	public List<CommentModel> getCommentList() throws Exception {
+	public List<BoardCommentModel> getCommentList() throws Exception {
 		
 		return null;
 	}
 
 	@Override
-	public CommentModel getCommentById(CommentModel commentModel) throws Exception {
+	public List<BoardCommentModel> getCommentByBoardId(BoardCommentModel commentModel) throws Exception {
 		
 		return null;
 	}
 
 	@Override
-	public int insertComment(CommentModel commentModel) throws Exception {
+	public BoardCommentModel getCommentByCmtId(BoardCommentModel commentModel) throws Exception {
+		
+		return null;
+	}
+
+	@Override
+	public int insertComment(BoardCommentModel commentModel) throws Exception {
 		
 		return 0;
 	}
 
 	@Override
-	public int updateComment(CommentModel commentModel) throws Exception {
+	public int updateComment(BoardCommentModel commentModel) throws Exception {
+		
+		return 0;
+	}
+	
+	@Override
+	public int deleteCommentByBoardId(BoardCommentModel commentModel) throws Exception {
 		
 		return 0;
 	}
 
 	@Override
-	public int deleteCommentById(CommentModel commentModel) throws Exception {
+	public int deleteCommentByCommentId(BoardCommentModel commentModel) throws Exception {
 		
 		return 0;
 	}
-
+	
+	// BoardFile
 	@Override
 	public List<BoardFileModel> getBoardFileList() throws Exception {
 		

@@ -2,10 +2,10 @@ package com.sonax.api.board.service;
 
 import java.util.List;
 
+import com.sonax.api.board.model.BoardCommentModel;
 import com.sonax.api.board.model.BoardFileModel;
 import com.sonax.api.board.model.BoardMasterModel;
 import com.sonax.api.board.model.BoardModel;
-import com.sonax.api.board.model.CommentModel;
 
 public interface BoardService {
 	// BOARD MASTER
@@ -23,11 +23,13 @@ public interface BoardService {
 	public int deleteBoardById(BoardModel boardModel) throws Exception;
 
 	// BOARD COMMENT
-	public List<CommentModel> getCommentList() throws Exception;
-	public CommentModel getCommentById(CommentModel commentModel) throws Exception;
-	public int insertComment(CommentModel commentModel) throws Exception;
-	public int updateComment(CommentModel commentModel) throws Exception;
-	public int deleteCommentById(CommentModel commentModel) throws Exception;
+	public List<BoardCommentModel> getCommentList() throws Exception;
+	public List<BoardCommentModel> getCommentByBoardId(BoardCommentModel commentModel) throws Exception;
+	public BoardCommentModel getCommentByCmtId(BoardCommentModel commentModel) throws Exception;
+	public int insertComment(BoardCommentModel commentModel) throws Exception;
+	public int updateComment(BoardCommentModel commentModel) throws Exception;
+	public int deleteCommentByBoardId(BoardCommentModel commentModel) throws Exception;
+	public int deleteCommentByCommentId(BoardCommentModel commentModel) throws Exception;
 
 	// BOARD FILE
 	public List<BoardFileModel> getBoardFileList() throws Exception;

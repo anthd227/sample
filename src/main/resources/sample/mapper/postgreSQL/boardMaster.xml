@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sonax.api.board.dao.BoardMstDao">
+	
+	<sql id="boardMasterFields">
+		MST.BOARD_MST_ID
+		, MST.BOARD_NM
+		, MST.BOARD_TYPE
+		, MST.BOARD_DESC
+		, MST.NOTICE_YN
+		, MST.FILE_ADD_YN
+		, MST.FILE_CNT
+		, MST.FILE_EXTENSION
+		, MST.USE_YN
+		, MST.REG_ID
+		, TO_CHAR(MST.REG_DATE, 'YYYY-MM-DD HH24:mi:SS') AS REG_DATE
+		, MST.UDT_ID
+		, TO_CHAR(MST.UDT_DATE, 'YYYY-MM-DD HH24:mi:SS') AS UDT_DATE
+	</sql>
+	
+	<!-- BOARD MASTER -->
+	<select id="getBoardMasterList"
+		resultType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardMasterList */
+		SELECT 
+			<include refid="boardMasterFields"/>
+		FROM T_BOARD_MASTER MST
+	</select>
+	
+	<select id="getBoardMasterById"
+		resultType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.getBoardMasterById */
+		SELECT 
+			<include refid="boardMasterFields"/>
+		FROM T_BOARD_MASTER MST
+		WHERE MST.BOARD_MASTER_ID = #{boardMasterId, jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insertBoardMaster"
+		useGeneratedKeys="true" keyProperty="boardMasterId"
+		parameterType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.insertBoardMaster */
+		INSERT INTO T_BOARD_MASTER(
+			BOARD_NM, BOARD_TYPE, BOARD_DESC, NOTICE_YN, FILE_ADD_YN, FILE_CNT
+			, FILE_EXTENSION, USE_YN, REG_ID, REG_DATE, UDT_ID, UDT_DATE
+		)
+		VALUES (
+			#{boardNm, jdbcType=VARCHAR}
+			, #{boardType, jdbcType=VARCHAR}
+			, #{boardDesc, jdbcType=VARCHAR}
+			, #{noticeYn, jdbcType=CHAR}
+			, #{fileAddYn, jdbcType=CHAR}
+			, #{fileCnt, jdbcType=INTEGER}
+			, #{fileExtension, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=CHAR}
+			,#{useYn, jdbcType=CHAR}
+			, NOW()
+		)	
+	</insert>
+	
+	<update id="updateBoardMaster"
+		parameterType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.updateBoardMaster */	
+		UPDATE T_BOARD_MASTER SET
+			BOARD_NM = #{boardNm, jdbcType=VARCHAR}
+			, BOARD_TYPE = #{boardType, jdbcType=VARCHAR}
+			, BOARD_DESC = #{boardDesc, jdbcType=VARCHAR}
+			, NOTICE_YN = #{noticeYn, jdbcType=CHAR}
+			, FILE_ADD_YN = #{fileAddYn, jdbcType=CHAR}
+			, FILE_CNT = {fileCnt, jdbcType=INTEGER}
+			, FILE_EXTENSION = #{fileExtension, jdbcType=VARCHAR}
+			, USE_YN = #{useYn, jdbcType=CHAR}
+			, UDT_ID = #{udtId, jdbcType=VARCHAR}
+			, UDT_DATE = NOW()
+		WHERE BOARD_MST_ID = #{boardMstId, jdbcType=INTEGER}	
+	</update>
+	
+	<delete id="deleteBoardMasterById"
+		parameterType="com.sonax.api.board.model.BoardMasterModel">
+		/* com.sonax.api.board.dao.BoardDao.deleteBoardMasterById */	
+		DELETE FROM T_BOARD_MASTER 
+		WHERE BOARD_MST_ID = #{boardMstId, jdbcType=INTEGER}	
+	</delete>
+	
+</mapper>

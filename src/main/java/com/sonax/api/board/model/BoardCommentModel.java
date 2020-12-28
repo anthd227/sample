@@ -2,25 +2,26 @@ package com.sonax.api.board.model;
 
 import com.sonax.common.model.VersionBaseModel;
 
-public class CommentModel extends VersionBaseModel {
-	private int commentId;     
+public class BoardCommentModel extends VersionBaseModel {
+	private int boardCmtId;     
 	private int postId;        
-	private String commentName;   
-	private String commentContent;
+	private String cmtWriterId;   
+	private String cmtContent;
 	private String delYn;         
 	private String adminDeleteYn;
 	private String deletionReason;
 	private int commentGroupId; // 부모댓글 id    
 	private int commentOrder;
 	
-	public CommentModel() {
+	public BoardCommentModel() {
 		super();
 	}
-	public int getCommentId() {
-		return commentId;
+	
+	public int getBoardCmtId() {
+		return boardCmtId;
 	}
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
+	public void setBoardCmtId(int boardCmtId) {
+		this.boardCmtId = boardCmtId;
 	}
 	public int getPostId() {
 		return postId;
@@ -28,29 +29,29 @@ public class CommentModel extends VersionBaseModel {
 	public void setPostId(int postId) {
 		this.postId = postId;
 	}
-	public String getCommentName() {
-		return commentName;
+	public String getCmtWriterId() {
+		return cmtWriterId;
 	}
-	public void setCommentName(String commentName) {
-		this.commentName = commentName;
+	public void setCmtWriterId(String cmtWriterId) {
+		this.cmtWriterId = cmtWriterId;
 	}
-	public String getCommentContent() {
-		return commentContent;
+	public String getCmtContent() {
+		return cmtContent;
 	}
-	public void setCommentContent(String commentContent) {
-		this.commentContent = commentContent;
-	}
-	public String getAdminDeleteYn() {
-		return adminDeleteYn;
-	}
-	public void setAdminDeleteYn(String adminDeleteYn) {
-		this.adminDeleteYn = adminDeleteYn;
+	public void setCmtContent(String cmtContent) {
+		this.cmtContent = cmtContent;
 	}
 	public String getDelYn() {
 		return delYn;
 	}
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
+	}
+	public String getAdminDeleteYn() {
+		return adminDeleteYn;
+	}
+	public void setAdminDeleteYn(String adminDeleteYn) {
+		this.adminDeleteYn = adminDeleteYn;
 	}
 	public String getDeletionReason() {
 		return deletionReason;

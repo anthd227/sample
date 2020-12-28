@@ -3,10 +3,11 @@ package com.sonax.api.board.model;
 import com.sonax.common.model.VersionBaseModel;
 
 public class BoardMasterModel extends VersionBaseModel {
-	private int boardId;
-	private String boardName;
+	private int boardMstId;
+	private String boardNm;
 	private String boardType;
 	private String boardDesc;
+	private String noticeYn;
 	private String fileAddYn; // 파일첨부 가능여부
 	private int fileCnt; // 첨부가능한 파일 개수
 	private String fileExtension; // 첨부가능한 파일 종류
@@ -16,20 +17,20 @@ public class BoardMasterModel extends VersionBaseModel {
 		super();
 	}
 
-	public int getBoardId() {
-		return boardId;
+	public int getBoardMstId() {
+		return boardMstId;
 	}
 
-	public void setBoardId(int boardId) {
-		this.boardId = boardId;
+	public void setBoardMstId(int boardMstId) {
+		this.boardMstId = boardMstId;
 	}
 
-	public String getBoardName() {
-		return boardName;
+	public String getBoardNm() {
+		return boardNm;
 	}
 
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
+	public void setBoardNm(String boardNm) {
+		this.boardNm = boardNm;
 	}
 
 	public String getBoardType() {
@@ -46,6 +47,14 @@ public class BoardMasterModel extends VersionBaseModel {
 
 	public void setBoardDesc(String boardDesc) {
 		this.boardDesc = boardDesc;
+	}
+
+	public String getNoticeYn() {
+		return noticeYn;
+	}
+
+	public void setNoticeYn(String noticeYn) {
+		this.noticeYn = noticeYn;
 	}
 
 	public String getFileAddYn() {

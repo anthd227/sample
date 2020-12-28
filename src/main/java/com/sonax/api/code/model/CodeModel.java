@@ -3,9 +3,9 @@ package com.sonax.api.code.model;
 import com.sonax.common.model.VersionBaseModel;
 
 public class CodeModel extends VersionBaseModel {
-	private String groupCode;
+	private String codeMst;
 	private String code;
-	private String codeName;
+	private String codeNm;
 	private String codeDesc;
 	private String systemCodeYn;
 	private int codeOrder;
@@ -15,11 +15,11 @@ public class CodeModel extends VersionBaseModel {
 		super();
 	}
 	
-	public String getGroupCode() {
-		return groupCode;
+	public String getCodeMst() {
+		return codeMst;
 	}
-	public void setGroupCode(String groupCode) {
-		this.groupCode = groupCode;
+	public void setCodeMst(String codeMst) {
+		this.codeMst = codeMst;
 	}
 	public String getCode() {
 		return code;
@@ -27,11 +27,11 @@ public class CodeModel extends VersionBaseModel {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getCodeName() {
-		return codeName;
+	public String getCodeNm() {
+		return codeNm;
 	}
-	public void setCodeName(String codeName) {
-		this.codeName = codeName;
+	public void setCodeNm(String codeNm) {
+		this.codeNm = codeNm;
 	}
 	public String getCodeDesc() {
 		return codeDesc;
