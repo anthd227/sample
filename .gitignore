@@ -1,1 +1,8 @@
 /target/
+target/classes/com/erns/sample/HomeController.class
+target/classes/com/erns/sample/user/web/UserController.class
+target/classes/sample/config/db.properties
+target/classes/sample/spring/context-datasource.xml
+target/classes/sample/spring/context-mapper.xml
+target/m2e-wtp/web-resources/META-INF/maven/com.erns/sample/pom.properties
+target/m2e-wtp/web-resources/META-INF/maven/com.erns/sample/pom.xml
